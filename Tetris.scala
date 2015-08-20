@@ -25,15 +25,18 @@ class Game {script..
            val currentFigure = new Figure(nextFigure)
            nextFigure = random
 
-           currentFigure ~~(positions: List[Int, Int], color: Color)~~> updateFigureWell(positions, color)
+           currentFigure ~~(positions: List[Int, Int])~~> updateFigureWell: positions
            remove: currentFigure
 
            removeFilledRows ~~(removedRowsIds: List[Int])~~> let score += removedRowsIds.size * 10
            if well.maxHeight >= well.height then gameOver.trigger
          ] ...
 
-  currentFigure.live = [[fall %/ downCmd] || controls] %/ pause ...
-                       return this.components.map(_.position)
+}
+
+class Figure {script..
+  live = [fall || controls] %/% pause ...
+         components.map(_.position)^
 
   fall = delay: speed
          let this.y -= 1

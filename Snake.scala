@@ -1,7 +1,7 @@
 game = new Snake && rabbits
 
 class Snake {script..
-  live = [move || controls] %/ pause
+  live = [move || controls] %/% pause
 
   move = delay: speed
          if border.collidesWith(head.position + direction) then gameOver.trigger break else advance()

@@ -7,7 +7,7 @@ class Ball {script..
 
 class Board {script..
   // cmdToDirection is a signal: may carry Boolean values, or may disappear when user releases the button
-  live = cmdToDirection ~~(left: Some[(Int, Int)])~~>> let force = left getOrElse (0, 0)
+  live = cmdToDirection ~~(direction: Some[(Int, Int)])~~>> let force = direction getOrElse (0, 0)
 
   cmdToDirection = keys ~~>> {_ match
     case 'd' => (1 , 0)
@@ -16,7 +16,7 @@ class Board {script..
 }
 
 class DestructableTarget {script..
-  live = collision ~~(hitPart: PartOfDestructableTarget)~~> [
+  live = collision ~~(case hitPart: PartOfDestructableTarget)~~> [
     delete: hitPart
     let score += 1
     if noMorePartsLeft then victory.trigger
