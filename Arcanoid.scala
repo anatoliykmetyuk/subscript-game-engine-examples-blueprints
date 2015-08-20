@@ -7,9 +7,9 @@ class Ball {script..
 
 class Board {script..
   // cmdToDirection is a signal: may carry Boolean values, or may disappear when user releases the button
-  live = cmdToDirection ~~(direction: Some[(Int, Int)])~~>> let force = direction getOrElse (0, 0)
+  live = cmdToDirection ~~(direction: Some[(Int, Int)])~~>> {force = direction getOrElse (0, 0)}
 
-  cmdToDirection = keys ~~>> {_ match
+  cmdToDirection = keys ~~>> {
     case 'd' => (1 , 0)
     case 'a' => (-1, 0)
   }

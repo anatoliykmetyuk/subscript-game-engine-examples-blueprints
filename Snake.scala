@@ -1,10 +1,11 @@
-game = new Snake && rabbits
+live = new Snake || border || rabbits
 
 class Snake {script..
   live = [move || controls] %/% pause
 
   move = delay: speed
-         if border.collidesWith(head.position + direction) then gameOver.trigger break else advance()
+         while (!border.collidesWith(head.position + direction) && !tail.collides(head.position + direction))
+         advance()
 
   controls = [cmdToVector ~~> updateDirection ~~> if _ then delay: rapidMovementSpeed advance()] ...
 
@@ -19,5 +20,5 @@ class Snake {script..
 rabbits = [randomLocation ~~> (new Rabbit(_))] ...
 
 class Rabbit {script..
-  live = collision ~~> if _ == snake then delete: this let score += 1
+  live = collision ~~> if _.isInstanceOf[Snake] then delete: this let score += 1
 }
